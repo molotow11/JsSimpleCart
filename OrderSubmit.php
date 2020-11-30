@@ -5,10 +5,10 @@
 */
 
 $config = array(
-	'sendTo' 	=> 'molotow11@gmail.com',
-	'siteName'	=> 'Steckermann',
-	'sentFrom'	=> 'order@steckermann.ru',
-	'replyTo'	=> $_POST['email'] ? $_POST['email'] : 'order@steckermann.ru',
+	'sendTo' 	=> 'test@dummy.com',
+	'siteName'	=> 'TestSite',
+	'sentFrom'	=> 'order@testsite.com',
+	'replyTo'	=> $_POST['email'] ? $_POST['email'] : 'order@testsite.com',
 );
 
 if($_POST) {	
