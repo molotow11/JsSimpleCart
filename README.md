@@ -6,7 +6,7 @@ Simple order cart for your Site
 	2. Configure this part for link it to products:
 		```
 		var productBlockSelector	= "table.model tbody tr";
-		var addToCartSelector		= "a.cart";
+		var addToCartSelector		= "a.cart"; //relative to productBlockSelector
 		var productTitleSelector	= "td:eq(0)";
 		var productPriceSelector	= "td.price";
 		var productQtySelector		= ""; // default 1
