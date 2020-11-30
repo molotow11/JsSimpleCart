@@ -18,4 +18,4 @@ Simple order cart for your Site
 	5. The cart will be visible on the top right corner (if productBlockSelector existing on the page).
 	
 ### Demo
-	- https://joomcar.net/jQuerySimpleCart.html
+	- [https://joomcar.net/jQuerySimpleCart.html](https://joomcar.net/jQuerySimpleCart.html)
