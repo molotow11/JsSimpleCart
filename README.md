@@ -4,7 +4,7 @@ Simple order cart for your Site
 ### How to integrate
 	- Copy the layout from cart.html and put it somwhere into your site (need jQuery to be included first)
 	- Configure this part for link it to products
-		```
+		```javascript
 		var productBlockSelector	= "table.model tbody tr";
 		var addToCartSelector		= "a.cart";
 		var productTitleSelector	= "td:eq(0)";
