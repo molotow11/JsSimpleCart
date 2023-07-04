@@ -56,20 +56,20 @@
 	}
 </style>
 <div id="SimpleCart">
-	<div class="SimpleCart-empty">Ваша корзина пуста</div>
-	<div class="SimpleCart-mobile" style="display: none;">Корзина</div>
+	<div class="SimpleCart-empty">Your cart is empty</div>
+	<div class="SimpleCart-mobile" style="display: none;">Cart</div>
 </div>
 <div id="SimpleCartDetails" class="SimpleCartDetails-hidden">
 	<div class="SimpleCartDetails__close">x</div>
-	<div class="SimpleCartDetails__title">Товары в корзине</div>
+	<div class="SimpleCartDetails__title">Items in the cart</div>
 	<ul class="SimpleCartDetails__products"></ul>
 	<div class="SimpleCartDetails__totals">
-		Всего продуктов
+		Total products
 		<span class="SimpleCartDetails__productsCount">0</span>
-		на сумму
+		for the amount of
 		<span class="SimpleCartDetails__totalPrice">0</span> Р
-		<button class="SimpleCartDetails__place-order">Сделать заказ</button>
-		<a href="#" class="SimpleCartDetails__clearCart">Очистить корзину</a>
+		<button class="SimpleCartDetails__place-order">Make an order</button>
+		<a href="#" class="SimpleCartDetails__clearCart">Clear cart</a>
 	</div>
 </div>
 <div id="SimpleCartOrderPopup">
@@ -77,15 +77,15 @@
 	<div class="SimpleCartOrderPopup__body">
 		<div class="SimpleCartOrderPopup__close">x</div>
 		<div class="SimpleCartOrderPopup-title">
-			Сделать заказ
+			Make an order
 		</div>
 		<form class="SimpleCartOrderPopup__form">
 			<label>
-				<span>Ваше имя</span>
+				<span>Your name</span>
 				<input required type="text" name="name" />
 			</label>
 			<label>
-				<span>Телефон</span>
+				<span>Telephone</span>
 				<input required type="tel" name="phone" />
 			</label>
 			<label>
@@ -93,14 +93,14 @@
 				<input required type="email" name="email" />
 			</label>
 			<label>
-				<span>Ваш заказ</span>
+				<span>Your order</span>
 				<textarea class="SimpleCartOrderPopup__orderList" name="order"></textarea>
 			</label>
-			<button type="submit">Отправить</button>
+			<button type="submit">Send</button>
 		</form>
 	</div>
 	<div class="SimpleCartOrderPopup-success" style="display: none;">
-		Ваш заказ отправлен
+		Your order has been sent
 	</div>
 </div>
-<script type="text/javascript" src="cart.js"></script>
+<script type="text/javascript" src="simple-cart.js"></script>

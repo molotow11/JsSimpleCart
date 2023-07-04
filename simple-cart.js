@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const cartCookieDays = 7;
-  const formSubmitUrl = "/OrderSubmit.php";
+  const formSubmitUrl = "/order-submit.php";
   const cookieProductsName = "SimpleCart";
 
   const productsOnSite = document.querySelectorAll(productSelectors.product);
