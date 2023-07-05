@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: body,
       });
 
-      if (!res.ok) return;
+      //if (!res.ok) return;
       if (!callback) return;
       callback();
     } catch (err) {
