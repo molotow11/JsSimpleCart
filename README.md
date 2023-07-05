@@ -22,6 +22,3 @@ Simple order cart for your Site
 	3. Put OrderSubmit.php in site root or other place you configured in formSubmitUrl parameter.
 	4. Configure OrderSubmit.php and change your email and site.
 	5. The cart will be visible on the top right corner (if productBlockSelector existing on the page).
-	
-### Demo
-	https://joomcar.net/SimpleCart.html
