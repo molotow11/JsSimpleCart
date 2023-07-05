@@ -1,21 +1,27 @@
-# jQuerySimpleCart
+# SimpleCart
 Simple order cart for your Site
 
 ### How to integrate
-	1. Copy the layout from cart.html and put it somewhere into your site (need jQuery to be included first)
+	1. Copy the layout from simple-cart.html and put it in the end html file of yours site.
+		simple-cart.js into root catalog where added simple-cart.html.
 	2. Configure this part for link it to products:
 		```
-		var productBlockSelector	= "table.model tbody tr";
-		var addToCartSelector		= "a.cart"; //relative to productBlockSelector
-		var productTitleSelector	= "td:eq(0)";
-		var productPriceSelector	= "td.price";
-		var productQtySelector		= ""; // default 1
-		var cartCookieDays		= 7;
-		var formSubmitUrl		= "/OrderSubmit.php";
+		const productSelectors = {
+			product: ".product__element",
+			buttonAddToCart: ".cart",
+			title: ".title",
+			price: ".price",
+			qty: ".qty",
+		};
+
+		const cartCookieDays = 7;
+		const formSubmitUrl = "/OrderSubmit.php";
+		const cookieProductsName = "SimpleCart";
+
 		```
 	3. Put OrderSubmit.php in site root or other place you configured in formSubmitUrl parameter.
 	4. Configure OrderSubmit.php and change your email and site.
 	5. The cart will be visible on the top right corner (if productBlockSelector existing on the page).
 	
 ### Demo
-	https://joomcar.net/jQuerySimpleCart.html
+	https://joomcar.net/SimpleCart.html
