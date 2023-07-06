@@ -12,6 +12,7 @@ Simple order cart for your Site
 			title: ".title",
 			price: ".price",
 			qty: ".qty",
+			currency: '$'
 		};
 
 		const cartCookieDays = 7;
