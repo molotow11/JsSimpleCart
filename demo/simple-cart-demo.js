@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     title: ".title",
     price: ".price",
     qty: ".qty",
+    currency: '$'
   };
 
   const cartSelectors = {
@@ -100,8 +101,13 @@ document.addEventListener("DOMContentLoaded", () => {
     products.forEach((product) => {
       const productLayout = `
         <li>
-          <span class='${createClass(productSelectors.title)}'>${product.title}</span>
-          <span class='${createClass(productSelectors.price)}'>${product.price} Р</span>
+          <span class='${createClass(productSelectors.title)}'>${
+            product.title
+          }</span>
+          <span class='${createClass(productSelectors.price)}'>${
+            product.price} ${
+            productSelectors.currency
+          }</span>
           <span class='qty-sign'>x</span>
           <span>
             <input class='${createClass(productSelectors.qty)}' type='number' min='0' value='${product.qty}'>
@@ -156,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: body,
       });
 
-      if (!res.ok) return;
+      //if (!res.ok) return;
       if (!callback) return;
       callback();
     } catch (err) {
