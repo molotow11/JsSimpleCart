@@ -1,10 +1,10 @@
 # SimpleCart
 Simple order cart for your Site
 
-# Demo
+## Demo
 https://molotow11.github.io/JsSimpleCart/demo/
 
-### How to integrate
+## How to integrate
 	1. Copy the layout from simple-cart.html and put it in the end html file of yours site.
 		simple-cart.js into root catalog where added simple-cart.html.
 	2. Configure this part for link it to products:
