@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const productSelectors = {
-    product: ".product__element",
-    buttonAddToCart: ".cart",
-    title: ".title",
-    price: ".price",
-    qty: ".qty",
-    currency: '$'
+    product: ".product",
+    buttonAddToCart: ".product__add-to-cart-button",
+    title: ".product__title",
+    price: ".product__price",
+    qty: ".product__qty",
+    currency: ".product__currency",
   };
 
   const cartSelectors = {
@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
     details: "SimpleCartDetails",
     detailsClose: ".SimpleCartDetails__close",
     detalisHidden: "SimpleCartDetails-hidden",
+    productAdded: "SimpleCart-productAdded",
+    productNotAdded: "SimpleCart-productNotAdded",
+  };
+
+  const currencies = {
+    selector: "products__currencies",
+    USD_RUB: 90,
   };
 
   const cartCookieDays = 7;
@@ -20,6 +27,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const cookieProductsName = "SimpleCart";
 
   const productsOnSite = document.querySelectorAll(productSelectors.product);
+
+  function debounce(callback, delay = 0) {
+    let debounceTimeout;
+
+    return (...args) => {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => {
+        callback(...args);
+      }, delay);
+    };
+  }
+
+  function onChangeCurrency() {
+    const productsCurrency = document.getElementById(currencies.selector);
+
+    productsCurrency?.addEventListener("change", (e) => {
+      productsOnSite.forEach((product) => {
+        const productCurrency = product.querySelector(
+          productSelectors.currency
+        );
+
+        productCurrency.textContent = e.target.value;
+
+        let productPrice = product.querySelector(productSelectors.price);
+        let productPriceValue = +productPrice.textContent;
+
+        if (e.target.value === "$") {
+          productPriceValue = productPriceValue / currencies.USD_RUB;
+        }
+        if (e.target.value === "₽") {
+          productPriceValue = productPriceValue * currencies.USD_RUB;
+        }
+
+        productPriceValue = productPriceValue.toFixed(2);
+        productPrice.textContent = productPriceValue;
+      });
+    });
+  }
 
   function ifProductAddedInCart(productsInCart = []) {
     productsOnSite.forEach((siteProduct) => {
@@ -44,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function createClass(selector) {
-    return selector.split(".").join('');
+    return selector.split(".").join("");
   }
 
   function useCartLayout({ body, details, detailsClose, detalisHidden }) {
@@ -98,19 +143,22 @@ document.addEventListener("DOMContentLoaded", () => {
     //update detailed cart
     cartDetailsProducts.innerHTML = "";
 
-    products.forEach((product) => {
+    products?.forEach((product) => {
       const productLayout = `
         <li>
           <span class='${createClass(productSelectors.title)}'>${
-            product.title
-          }</span>
+        product.title
+      }</span>
           <span class='${createClass(productSelectors.price)}'>${
-            product.price} ${
-            productSelectors.currency
-          }</span>
-          <span class='qty-sign'>x</span>
+        product.price
+      } <span class='${createClass(productSelectors.currency)}'>${
+        product.currency
+      }</span></span>
+          <span>&#120;</span>
           <span>
-            <input class='${createClass(productSelectors.qty)}' type='number' min='0' value='${product.qty}'>
+            <input class='${createClass(
+              productSelectors.qty
+            )}' type='number' min='0' value='${product.qty}'>
           </span>
         </li>
       `;
@@ -119,7 +167,9 @@ document.addEventListener("DOMContentLoaded", () => {
       productsTotalPrice += product.price * product.qty;
     });
 
-    productsTotalPrice = productsTotalPrice.toFixed(2);
+    productsTotalPrice = `${productsTotalPrice.toFixed(2)} ${
+      products[0]?.currency
+    }`;
     cartDetailsProductsCount.textContent = productsCount;
     cartDetailsTotalPrice.textContent = productsTotalPrice;
 
@@ -174,6 +224,22 @@ document.addEventListener("DOMContentLoaded", () => {
     return string.replace(/\n|\r/g, "").replace(/\s+/g, " ").trim();
   }
 
+  function addedProduct(product = {}, method = "get") {
+    let qty = parseInt(product.querySelector(productSelectors.qty)?.value);
+    if (method === "add") {
+      qty = qty || 1;
+    }
+
+    return {
+      title: product.querySelector(productSelectors.title).textContent,
+      price: parseFloat(
+        product.querySelector(productSelectors.price).textContent
+      ),
+      currency: product.querySelector(productSelectors.currency).textContent,
+      qty: qty || 0,
+    };
+  }
+
   function getCartProducts() {
     const products = [];
     const cartProducts = document
@@ -181,16 +247,10 @@ document.addEventListener("DOMContentLoaded", () => {
       .querySelectorAll(".SimpleCartDetails__products li");
 
     cartProducts.forEach((product) => {
-      const addedProduct = {
-        title: product.querySelector(productSelectors.title).textContent,
-        price: parseFloat(
-          product.querySelector(productSelectors.price).textContent
-        ),
-        qty: parseInt(product.querySelector(productSelectors.qty).value),
-      };
+      const getAddedProduct = addedProduct(product);
 
-      if (addedProduct.qty > 0) {
-        products.push(addedProduct);
+      if (getAddedProduct.qty > 0) {
+        products.push(getAddedProduct);
       }
     });
     return products;
@@ -203,14 +263,24 @@ document.addEventListener("DOMContentLoaded", () => {
     setCookie(cookieProductsName, JSON.stringify(products), cartCookieDays);
   }
 
-  function addToCart(product) {
+  function addToCart({
+    product: product = {},
+    callback: callback = null,
+    errorCallback: errorCallback = null,
+  }) {
     const products =
       (getCookie(cookieProductsName) &&
         JSON.parse(getCookie(cookieProductsName))) ||
       [];
 
     if (products.length) {
+      const cartProductsCurrency = products[0].currency;
       let isExistingProduct = false;
+
+      if (product.currency !== cartProductsCurrency) {
+        if (!errorCallback) return;
+        return errorCallback();
+      }
 
       products.forEach((addedProduct) => {
         if (addedProduct.title === product.title) {
@@ -226,6 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
       products.push(product);
     }
 
+    callback && callback();
     console.log("Product added: ", product);
     setCookie(cookieProductsName, JSON.stringify(products), cartCookieDays);
     buildCartLayout();
@@ -288,12 +359,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const popupOrder = popup.querySelector(".SimpleCartOrderPopup__orderList");
     const source = "cart";
 
+    onChangeCurrency();
     buildCartLayout();
     useCartLayout(cartSelectors);
 
     //Change qty in detailed cart
     document.body.addEventListener("change", (e) => {
-      if (!e.target.classList.contains(createClass(productSelectors.qty))) return;
+      if (!e.target.classList.contains(createClass(productSelectors.qty)))
+        return;
 
       buildCartLayout(source);
       saveCartFromLayout();
@@ -310,7 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
       popupOrder.value = "";
 
       products.forEach((product) => {
-        let value = `${product.title} - ${product.price} Р x ${product.qty}`;
+        let value = `${product.title} - ${product.price} ${product.currency} x ${product.qty}`;
         value +=
           "\r\n-----------------------------------------------------------\r\n";
         popupOrder.value += value;
@@ -347,6 +420,24 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
+    const addToCartDebounce = debounce(() => {
+      cart.classList.remove(cartSelectors.productAdded);
+    }, 1000);
+
+    const addToCartErrorDebounce = debounce(() => {
+      cart.classList.remove(cartSelectors.productNotAdded);
+    }, 3000);
+
+    const addToCartCallback = () => {
+      cart.classList.add(cartSelectors.productAdded);
+      addToCartDebounce();
+    };
+
+    const addToCartErrorCallback = () => {
+      cart.classList.add(cartSelectors.productNotAdded);
+      addToCartErrorDebounce();
+    };
+
     //bind buy buttons click
     productsOnSite.forEach((product) => {
       const addToCartBtn = product.querySelector(
@@ -354,20 +445,13 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       addToCartBtn.addEventListener("click", () => {
-        const addedProduct = {
-          title: product.querySelector(productSelectors.title).textContent, // prepare product title
-          price: parseFloat(
-            product.querySelector(productSelectors.price).textContent
-          ), // prepare product price
-          qty:
-            parseInt(product.querySelector(productSelectors.qty)?.value) || 1,
-        };
+        const addedProductToCart = addedProduct(product, "add");
 
-        addToCart(addedProduct);
-        cart.classList.add("productAdded");
-        setTimeout(() => {
-          cart.classList.remove("productAdded");
-        }, 1000);
+        addToCart({
+          product: addedProductToCart,
+          callback: addToCartCallback,
+          errorCallback: addToCartErrorCallback,
+        });
       });
     });
 
