@@ -1,263 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>SimpleCart Demo</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta
-      name="description"
-      content="javascript simlpe crart demo"
-    />
-		<style id="demo-styles">
-			body > table {
-				width: 70%; text-align: center;
-				background: #eee;
-				padding: 10px;
+<head>
+	<title>SimpleCart Demo</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta
+		name="description"
+		content="javascript simlpe crart demo"
+	/>
+	<style id="demo-styles">
+		body > table {
+			width: 70%; text-align: center;
+			background: #eee;
+			padding: 10px;
+		}
+		body > table td { padding: 10px; border-top: 1px solid #ddd; }
+		body > table th { padding: 10px; background: #ccc; }
+		#products__currencies select { padding: 10px; }
+		#products__currencies option { padding: 10px; }
+		.product__add-to-cart-button {cursor: pointer; padding: 10px;}
+	</style>
+</head>
+<body>
+	<h1>SimpleCart Demo</h1>
+	<h2>Must be uploaded to the site for make cookies work (not working as local file)</h2>
+	<table cellpadding="0" cellspacing="0" class="model model2" role="table">
+		<thead role="rowgroup">
+			<tr>
+				<th role="columnheader" style="width: 201px;">Name</th>
+				<th role="columnheader">Power (W)<br>
+					&nbsp; ± 5%</th>
+				<th role="columnheader">Diffuser</th>
+				<th role="columnheader">Color rendering index<br>
+					(CRI)</th>
+				<th role="columnheader">Luminous flux (Lm),<br>
+					after diffuser</th>
+				<th role="columnheader">LED Matrix Efficiency <br>
+					(Lum/W)</th>
+				<th id="products__currencies" width="15%" role="columnheader"></th>
+				<th role="columnheader">Add to cart</th>
+			</tr>
+		</thead>
+		<tbody role="rowgroup">
+			<tr class="product">
+				<td class="product__title" role="cell">LUCERNA LED 40 PR PRO 90 </td>
+				<td role="cell">42</td>
+				<td role="cell">PR</td>
+				<td role="cell">90</td>
+				<td role="cell">5400</td>
+				<td role="cell">176</td>
+				<td role="cell">
+					<span class="product__price">208.79</span>&nbsp;<span class="product__currency">$</span>
+				</td>
+				<td role="cell"><button class="product__add-to-cart-button" type="button"
+						data-sb-id-or-vendor-code="LUCERNA-LED-40-PR-PRO-90-">Add to Cart</button></td>
+			</tr>
+			<tr class="product">
+				<td class="product__title" role="cell">LUCERNA LED 40 OR PRO 90</td>
+				<td role="cell">42</td>
+				<td role="cell">OR</td>
+				<td role="cell">90</td>
+				<td role="cell">4650</td>
+				<td role="cell">176</td>
+				<td role="cell">
+					<span class="product__price">308.04</span>&nbsp;<span class="product__currency">$</span>
+				</td>
+				<td role="cell"><button class="product__add-to-cart-button" type="button"
+						data-sb-id-or-vendor-code="LUCERNA-LED-40-OR-PRO-90">Add to Cart</button></td>
+			</tr>
+			<tr class="product">
+				<td class="product__title" role="cell">LUCERNA LED 45 PR ECO</td>
+				<td role="cell">45</td>
+				<td role="cell">PR</td>
+				<td role="cell">80</td>
+				<td role="cell">5300</td>
+				<td role="cell">140</td>
+				<td role="cell">
+					<span class="product__price">200.28</span>&nbsp;<span class="product__currency">$</span>
+				</td>
+				<td role="cell"><button class="product__add-to-cart-button" type="button"
+						data-sb-id-or-vendor-code="LUCERNA-LED-45-PR-ECO">Add to Cart</button></td>
+			</tr>
+			<tr class="product">
+				<td class="product__title" role="cell">LUCERNA LED 45 OR ECO</td>
+				<td role="cell">45</td>
+				<td role="cell">OR</td>
+				<td role="cell">80</td>
+				<td role="cell">4550</td>
+				<td role="cell">140</td>
+				<td role="cell">
+					<span class="product__price">200.28</span>&nbsp;<span class="product__currency">$</span>
+				</td>
+				<td role="cell"><button class="product__add-to-cart-button" type="button"
+						data-sb-id-or-vendor-code="LUCERNA-LED-45-OR-ECO">Add to Cart</button></td>
+			</tr>
+			<tr class="product">
+				<td class="product__title" role="cell">LUCERNA LED 55 PR PRO 90</td>
+				<td role="cell">56</td>
+				<td role="cell">PR</td>
+				<td role="cell">90</td>
+				<td role="cell">7200</td>
+				<td role="cell">176</td>
+				<td role="cell">
+					<span class="product__price">264.76</span>&nbsp;<span class="product__currency">$</span>
+				</td>
+				<td role="cell"><button class="product__add-to-cart-button" type="button"
+						data-sb-id-or-vendor-code="LUCERNA-LED-55-PR-PRO-90">Add to Cart</button></td>
+			</tr>
+			<tr class="product">
+				<td class="product__title" role="cell">LUCERNA LED 55 OR PRO 90</td>
+				<td role="cell">56</td>
+				<td role="cell">OR</td>
+				<td role="cell">90</td>
+				<td role="cell">6200</td>
+				<td role="cell">176</td>
+				<td role="cell">
+					<span class="product__price">264.76</span>&nbsp;<span class="product__currency">$</span>
+				</td>
+				<td role="cell"><button class="product__add-to-cart-button" type="button"
+						data-sb-id-or-vendor-code="LUCERNA-LED-55-OR-PRO-90">Add to Cart</button></td>
+			</tr>
+			<tr class="product">
+				<td class="product__title" role="cell">LUCERNA LED 55 PR PRO</td>
+				<td role="cell">56</td>
+				<td role="cell">PR</td>
+				<td role="cell">80</td>
+				<td role="cell">8000</td>
+				<td role="cell">196</td>
+				<td role="cell">
+					<span class="product__price">306.25</span>&nbsp;<span class="product__currency">$</span>
+				</td>
+				<td role="cell"><button class="product__add-to-cart-button" type="button"
+						data-sb-id-or-vendor-code="LUCERNA-LED-55-PR-PRO">Add to Cart</button></td>
+			</tr>
+			<tr class="product">
+				<td class="product__title" role="cell">LUCERNA LED 55 OR PRO</td>
+				<td role="cell">56</td>
+				<td role="cell">OR</td>
+				<td role="cell">80</td>
+				<td role="cell">6900</td>
+				<td role="cell">196</td>
+				<td role="cell">
+					<span class="product__price">306.25</span>&nbsp;<span class="product__currency">$</span>
+				</td>
+				<td role="cell"><button class="product__add-to-cart-button" type="button"
+						data-sb-id-or-vendor-code="LUCERNA-LED-55-OR-PRO">Add to Cart</button></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<!-- Simple Cart by Andrey Miasoedov <molotow11@gmail.com> -->
+	<!-- Based on Cookies -->
+	<style>
+		#SimpleCart { display: none; width: 165px; position: fixed; top: 140px; right: 20px; padding: 20px; background: #eee; cursor: pointer; text-align: center; z-index: 1000; border-radius: 3px; }
+		.SimpleCart--product-added { box-shadow: 0 0 0 0 rgba(0, 0, 0, 1); transform: scale(1); animation: pulse 2s infinite; }
+		.SimpleCart--empty .SimpleCartDetails__totals {display: none;}
+		.SimpleCart--empty::after {content: 'Your cart is empty';}
+		.SimpleCart--product-not-added::after {content: 'Products in the shopping cart must be in the same currency'; font-size: 20px;}
+		#SimpleCartDetails { box-sizing: border-box; position: fixed; top: 100px; width: 300px; right: 0; height: 70%; overflow: hidden;  background: #eee; padding: 20px; z-index: 1001; display: flex; flex-direction: column; border-radius: 3px 0 0 3px; transition: .4s; }
+		.SimpleCartDetails--hidden {right: -300px!important};
+		#SimpleCartDetails ul { padding: 0px; margin: 0px; overflow-y: scroll; }
+		.SimpleCartDetails__title { text-align: center; font-size: 18px; }
+		.SimpleCartDetails__products {padding: 0 10px 0 0; overflow-y: auto; height: 100%;}
+		.SimpleCartDetails--empty .SimpleCartDetails__totals {display: none;}
+		.SimpleCartDetails--empty .SimpleCartDetails__title::after {content: 'Your cart is empty'; display: block; padding: 20px;}
+		#SimpleCartDetails li { display: flex; align-items: center; list-style: none; padding: 10px 0 0 0; margin: 10px 0 0 0; border-top: 1px solid #ddd; }
+		#SimpleCartDetails li span { display: inline-block; padding: 0 10px 0 0; }
+		#SimpleCartDetails li .product__price { padding: 0; }
+		.SimpleCartDetails__products li button { display: flex; align-items: center; cursor: pointer; padding: 5px; height: fit-content; }
+		.SimpleCartDetails__products li button svg {height: 10px; width: 10px;}
+		.SimpleCartDetails__close { display: flex; position: absolute; cursor: pointer; margin: -8px 0 0 -5px; padding: 5px; }
+		#SimpleCartDetails .SimpleCartDetails__totals { margin: 10px 0 0 0; padding: 10px 0 0 0; border-top: 1px solid #fff; }
+		#SimpleCartDetails .product__qty { display: inline-block; width: 40px; padding: 3px; height: auto !important; text-align: center; }
+		#SimpleCartDetails .product__qty::-webkit-inner-spin-button, 
+		#SimpleCartDetails .product__qty::-webkit-outer-spin-button { opacity: 1; }
+		.SimpleCartDetails__place-order, .SimpleCartDetails__clearCart { display: block; margin: 10px auto; padding: 10px 15px; cursor: pointer; font-size: 16px; }
+		#SimpleCart .SimpleCartDetails__place-order { display: none; }
+		#SimpleCart .SimpleCartDetails__clearCart { display: none; }
+		#SimpleCartOrderPopup { display: none; position: fixed; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; }
+		#SimpleCartOrderPopup.visible { display: flex; align-items: center; justify-content: center; }
+		.SimpleCartOrderPopup__backdrop { position: absolute; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); }
+		.SimpleCartOrderPopup__body { z-index: 2; position: relative; background: #fff; padding: 40px; width: 50%; height: 80%; overflow-y: auto; border-radius: 4px; }
+		.SimpleCartOrderPopup__close { display: flex; position: absolute; cursor: pointer; right: 15px; top: 10px; padding: 5px; }
+		#SimpleCartOrderPopup label { display: block; }
+		.SimpleCartOrderPopup-title { font-size: 20px; text-align: center; margin: 0 0 20px 0; padding: 0 0 20px 0; border-bottom: 1px solid #ddd; }
+		.SimpleCartOrderPopup__orderList { display: block; width: 100%; min-height: 150px; }
+		#SimpleCartOrderPopup button[type=submit] { display: block; margin: 20px auto 0; padding: 10px 20px;}
+		#SimpleCartOrderPopup label { margin-bottom: 10px; }
+		#SimpleCartOrderPopup label span { display: inline-block; min-width: 200px; }
+		.SimpleCartOrderPopup-success { background: #fff; z-index: 2; padding: 50px; border-radius: 4px; font-size: 20px; }
+		.SimpleCart-inCart { background: #fff298; }
+		#SimpleCartDetails a.SimpleCartDetails__clearCart { display: block; margin: 10px auto 0; text-align: center; }
+		@media (max-width: 600px) {
+			#SimpleCart .SimpleCartDetails__totals { display: none; }
+			#SimpleCart .SimpleCart-mobile { display: block !important; }
+			#SimpleCart { top: 100px; padding: 10px; }
+			.SimpleCartOrderPopup-body { width: 90% !important; height: 90% !important; }
+		}
+		@keyframes pulse {
+			0% {
+				transform: scale(0.95);
+				box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
 			}
-			body > table td { padding: 10px; border-top: 1px solid #ddd; }
-			body > table th { padding: 10px; background: #ccc; }
-		</style>
-	</head>
-	<body>
-		<h1>SimpleCart Demo</h1>
-		<h2>Must be uploaded to the site for make cookies work (not working as local file)</h2>
-		<table cellpadding="0" cellspacing="0" class="model model2" role="table">
-			<thead role="rowgroup">
-				<tr>
-					<th role="columnheader" style="width: 201px;">Name</th>
-					<th role="columnheader">Power (W)<br>
-						&nbsp; ± 5%</th>
-					<th role="columnheader">Diffuser</th>
-					<th role="columnheader">Color rendering index<br>
-						(CRI)</th>
-					<th role="columnheader">Luminous flux (Lm),<br>
-						after diffuser</th>
-					<th role="columnheader">LED Matrix Efficiency <br>
-						(Lum/W)</th>
-					<th width="15%" role="columnheader">
-						<select id="products__currencies">
-							<option value="$" selected>Price in USD</option>
-							<option value="₽">Price in RUB</option>
-						</select>
-					</th>
-					<th role="columnheader">Add to cart</th>
-				</tr>
-			</thead>
-			<tbody role="rowgroup">
-				<tr class="product">
-					<td class="product__title" role="cell">LUCERNA LED 40 PR PRO 90 </td>
-					<td role="cell">42</td>
-					<td role="cell">PR</td>
-					<td role="cell">90</td>
-					<td role="cell">5400</td>
-					<td role="cell">176</td>
-					<td role="cell">
-						<span class="product__price">208.79</span>&nbsp;<span class="product__currency">$</span>
-					</td>
-					<td role="cell"><a href="#" class="product__add-to-cart-button"
-							data-sb-id-or-vendor-code="LUCERNA-LED-40-PR-PRO-90-">Add to Cart</a></td>
-				</tr>
-				<tr class="product">
-					<td class="product__title" role="cell">LUCERNA LED 40 OR PRO 90</td>
-					<td role="cell">42</td>
-					<td role="cell">OR</td>
-					<td role="cell">90</td>
-					<td role="cell">4650</td>
-					<td role="cell">176</td>
-					<td role="cell">
-						<span class="product__price">308.04</span>&nbsp;<span class="product__currency">$</span>
-					</td>
-					<td role="cell"><a href="#" class="product__add-to-cart-button"
-							data-sb-id-or-vendor-code="LUCERNA-LED-40-OR-PRO-90">Add to Cart</a></td>
-				</tr>
-				<tr class="product">
-					<td class="product__title" role="cell">LUCERNA LED 45 PR ECO</td>
-					<td role="cell">45</td>
-					<td role="cell">PR</td>
-					<td role="cell">80</td>
-					<td role="cell">5300</td>
-					<td role="cell">140</td>
-					<td role="cell">
-						<span class="product__price">200.28</span>&nbsp;<span class="product__currency">$</span>
-					</td>
-					<td role="cell"><a href="#" class="product__add-to-cart-button"
-							data-sb-id-or-vendor-code="LUCERNA-LED-45-PR-ECO">Add to Cart</a></td>
-				</tr>
-				<tr class="product">
-					<td class="product__title" role="cell">LUCERNA LED 45 OR ECO</td>
-					<td role="cell">45</td>
-					<td role="cell">OR</td>
-					<td role="cell">80</td>
-					<td role="cell">4550</td>
-					<td role="cell">140</td>
-					<td role="cell">
-						<span class="product__price">200.28</span>&nbsp;<span class="product__currency">$</span>
-					</td>
-					<td role="cell"><a href="#" class="product__add-to-cart-button"
-							data-sb-id-or-vendor-code="LUCERNA-LED-45-OR-ECO">Add to Cart</a></td>
-				</tr>
-				<tr class="product">
-					<td class="product__title" role="cell">LUCERNA LED 55 PR PRO 90</td>
-					<td role="cell">56</td>
-					<td role="cell">PR</td>
-					<td role="cell">90</td>
-					<td role="cell">7200</td>
-					<td role="cell">176</td>
-					<td role="cell">
-						<span class="product__price">264.76</span>&nbsp;<span class="product__currency">$</span>
-					</td>
-					<td role="cell"><a href="#" class="product__add-to-cart-button"
-							data-sb-id-or-vendor-code="LUCERNA-LED-55-PR-PRO-90">Add to Cart</a></td>
-				</tr>
-				<tr class="product">
-					<td class="product__title" role="cell">LUCERNA LED 55 OR PRO 90</td>
-					<td role="cell">56</td>
-					<td role="cell">OR</td>
-					<td role="cell">90</td>
-					<td role="cell">6200</td>
-					<td role="cell">176</td>
-					<td role="cell">
-						<span class="product__price">264.76</span>&nbsp;<span class="product__currency">$</span>
-					</td>
-					<td role="cell"><a href="#" class="product__add-to-cart-button"
-							data-sb-id-or-vendor-code="LUCERNA-LED-55-OR-PRO-90">Add to Cart</a></td>
-				</tr>
-				<tr class="product">
-					<td class="product__title" role="cell">LUCERNA LED 55 PR PRO</td>
-					<td role="cell">56</td>
-					<td role="cell">PR</td>
-					<td role="cell">80</td>
-					<td role="cell">8000</td>
-					<td role="cell">196</td>
-					<td role="cell">
-						<span class="product__price">306.25</span>&nbsp;<span class="product__currency">$</span>
-					</td>
-					<td role="cell"><a href="#" class="product__add-to-cart-button"
-							data-sb-id-or-vendor-code="LUCERNA-LED-55-PR-PRO">Add to Cart</a></td>
-				</tr>
-				<tr class="product">
-					<td class="product__title" role="cell">LUCERNA LED 55 OR PRO</td>
-					<td role="cell">56</td>
-					<td role="cell">OR</td>
-					<td role="cell">80</td>
-					<td role="cell">6900</td>
-					<td role="cell">196</td>
-					<td role="cell">
-						<span class="product__price">306.25</span>&nbsp;<span class="product__currency">$</span>
-					</td>
-					<td role="cell"><a href="#" class="product__add-to-cart-button"
-							data-sb-id-or-vendor-code="LUCERNA-LED-55-OR-PRO">Add to Cart</a></td>
-				</tr>
-			</tbody>
-		</table>
-		
-		<!-- Simple Cart by Andrey Miasoedov <molotow11@gmail.com> -->
-		<!-- Based on Cookies -->
-		<style>
-			#SimpleCart { display: none; width: 165px; position: fixed; top: 140px; right: 20px; padding: 20px; background: #eee; cursor: pointer; text-align: center; z-index: 1000; border-radius: 3px; }
-			.SimpleCart-productAdded { box-shadow: 0 0 0 0 rgba(0, 0, 0, 1); transform: scale(1); animation: pulse 2s infinite; }
-			.SimpleCart-productNotAdded::after {content: 'Products in the shopping cart must be in the same currency'; font-size: 20px;}
-			#SimpleCartDetails { box-sizing: border-box; position: fixed; top: 100px; width: 300px; right: 0; height: 70%; overflow: hidden;  background: #eee; padding: 15px 10px 15px 30px; z-index: 1001; display: flex; flex-direction: column; border-radius: 3px 0 0 3px; transition: .4s; }
-			.SimpleCartDetails-hidden {right: -300px!important};
-			.SimpleCartDetails__title { text-align: center; }
-			#SimpleCartDetails ul { padding: 0px; margin: 0px; overflow-y: scroll; }
-			#SimpleCartDetails li { list-style: none; padding: 10px 0 0 0; margin: 10px 0 0 0; border-top: 1px solid #ddd; }
-			#SimpleCartDetails li span { display: inline-block; padding: 0 10px 0 0; }
-			#SimpleCartDetails li .product__price { padding: 0; }
-			.SimpleCartDetails__close { display: block; position: absolute; cursor: pointer; margin: -10px 0 0 -20px; font-size: 24px; font-family: Arial; color: #777; }
-			#SimpleCartDetails .SimpleCartDetails__totals { margin: 10px 0 0 0; padding: 10px 0 0 0; border-top: 1px solid #fff; }
-			#SimpleCartDetails .product__qty { display: inline-block; width: 40px; padding: 3px; height: auto !important; text-align: center; }
-			#SimpleCartDetails .product__qty::-webkit-inner-spin-button, 
-			#SimpleCartDetails .product__qty::-webkit-outer-spin-button { opacity: 1; }
-			.SimpleCartDetails__place-order { display: block; margin: 15px auto 0; }
-			#SimpleCart .SimpleCartDetails__place-order { display: none; }
-			#SimpleCart .SimpleCartDetails__clearCart { display: none; }
-			#SimpleCartOrderPopup { display: none; position: fixed; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; }
-			#SimpleCartOrderPopup.visible { display: flex; align-items: center; justify-content: center; }
-			.SimpleCartOrderPopup__backdrop { position: absolute; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); }
-			.SimpleCartOrderPopup__body { z-index: 2; position: relative; background: #fff; padding: 40px; width: 50%; height: 80%; overflow-y: auto; border-radius: 4px; }
-			.SimpleCartOrderPopup__close { display: block; position: absolute; cursor: pointer; right: 15px; top: 10px; font-size: 24px; font-family: Arial; color: #777; }
-			#SimpleCartOrderPopup label { display: block; }
-			.SimpleCartOrderPopup-title { font-size: 20px; text-align: center; margin: 0 0 20px 0; padding: 0 0 20px 0; border-bottom: 1px solid #ddd; }
-			.SimpleCartOrderPopup__orderList { display: block; width: 100%; min-height: 150px; }
-			#SimpleCartOrderPopup button[type=submit] { display: block; margin: 20px auto 0; }
-			#SimpleCartOrderPopup label { margin-bottom: 10px; }
-			#SimpleCartOrderPopup label span { display: inline-block; min-width: 200px; }
-			.SimpleCartOrderPopup-success { background: #fff; z-index: 2; padding: 50px; border-radius: 4px; font-size: 20px; }
-			.SimpleCart-inCart { background: #fff298; }
-			#SimpleCartDetails a.SimpleCartDetails__clearCart { display: block; margin: 10px auto 0; text-align: center; }
-			@media (max-width: 600px) {
-				#SimpleCart .SimpleCart-empty { display: none; }
-				#SimpleCart .SimpleCartDetails__totals { display: none; }
-				#SimpleCart .SimpleCart-mobile { display: block !important; }
-				#SimpleCart { top: 100px; padding: 10px; }
-				.SimpleCartOrderPopup-body { width: 90% !important; height: 90% !important; }
-			}
-			@keyframes pulse {
-				0% {
-					transform: scale(0.95);
-					box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-				}
 
-				70% {
-					transform: scale(1);
-					box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-				}
-
-				100% {
-					transform: scale(0.95);
-					box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-				}
+			70% {
+				transform: scale(1);
+				box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
 			}
-		</style>
-		<div id="SimpleCart">
-			<div class="SimpleCart-empty">Your cart is empty</div>
-			<div class="SimpleCart-mobile" style="display: none;">Cart</div>
+
+			100% {
+				transform: scale(0.95);
+				box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+			}
+		}
+	</style>
+	<div id="SimpleCart">
+		<div class="SimpleCart-mobile" style="display: none;">Cart</div>
+	</div>
+	<div id="SimpleCartDetails" class="SimpleCartDetails--hidden">
+		<button class="SimpleCartDetails__close" type="button">
+			<svg viewBox="0 0 50 50" width="20px" height="20px"><path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z"/></svg>
+		</button>
+		<div class="SimpleCartDetails__title">Items in the cart</div>
+		<ul class="SimpleCartDetails__products"></ul>
+		<div class="SimpleCartDetails__totals">
+			Total products
+			<span class="SimpleCartDetails__productsCount">0</span>
+			for the amount of
+			<span class="SimpleCartDetails__totalPrice">0</span>
+			<button class="SimpleCartDetails__place-order" type="button">Make an order</button>
+			<button class="SimpleCartDetails__clearCart" type="button">Clear cart</button>
 		</div>
-		<div id="SimpleCartDetails" class="SimpleCartDetails-hidden">
-			<div class="SimpleCartDetails__close">&#120;</div>
-			<div class="SimpleCartDetails__title">Items in the cart</div>
-			<ul class="SimpleCartDetails__products"></ul>
-			<div class="SimpleCartDetails__totals">
-				Total products
-				<span class="SimpleCartDetails__productsCount">0</span>
-				for the amount of
-				<span class="SimpleCartDetails__totalPrice">0</span>
-				<button class="SimpleCartDetails__place-order">Make an order</button>
-				<a href="#" class="SimpleCartDetails__clearCart">Clear cart</a>
+	</div>
+	<div id="SimpleCartOrderPopup">
+		<div class="SimpleCartOrderPopup__backdrop"></div>
+		<div class="SimpleCartOrderPopup__body">
+			<button class="SimpleCartOrderPopup__close" type="button">
+				<svg viewBox="0 0 50 50" width="20px" height="20px"><path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z"/></svg>
+			</button>
+			<div class="SimpleCartOrderPopup-title">
+				Make an order
 			</div>
+			<form class="SimpleCartOrderPopup__form">
+				<label>
+					<span>Your name</span>
+					<input required type="text" name="name" />
+				</label>
+				<label>
+					<span>Telephone</span>
+					<input required type="tel" name="phone" />
+				</label>
+				<label>
+					<span>Email</span>
+					<input required type="email" name="email" />
+				</label>
+				<label>
+					<span>Your order</span>
+					<textarea class="SimpleCartOrderPopup__orderList" name="order"></textarea>
+				</label>
+				<button type="submit">Send</button>
+			</form>
 		</div>
-		<div id="SimpleCartOrderPopup">
-			<div class="SimpleCartOrderPopup__backdrop"></div>
-			<div class="SimpleCartOrderPopup__body">
-				<div class="SimpleCartOrderPopup__close">&#120;</div>
-				<div class="SimpleCartOrderPopup-title">
-					Make an order
-				</div>
-				<form class="SimpleCartOrderPopup__form">
-					<label>
-						<span>Your name</span>
-						<input required type="text" name="name" />
-					</label>
-					<label>
-						<span>Telephone</span>
-						<input required type="tel" name="phone" />
-					</label>
-					<label>
-						<span>Email</span>
-						<input required type="email" name="email" />
-					</label>
-					<label>
-						<span>Your order</span>
-						<textarea class="SimpleCartOrderPopup__orderList" name="order"></textarea>
-					</label>
-					<button type="submit">Send</button>
-				</form>
-			</div>
-			<div class="SimpleCartOrderPopup-success" style="display: none;">
-				Your order has been sent
-			</div>
+		<div class="SimpleCartOrderPopup-success" style="display: none;">
+			Your order has been sent
 		</div>
-		<script type="text/javascript" src="simple-cart-demo.js"></script>
-	</body>
+	</div>
+	<script src="simple-cart-demo.js" defer></script>
+</body>
 </html>
