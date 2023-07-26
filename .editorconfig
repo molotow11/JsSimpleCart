@@ -1,6 +1,6 @@
 [*]
 indent_style = tab
-indent_size = 1
+indent_size = 0
 
 [*.md]
 trim_trailing_whitespace = false
