@@ -1,4 +1,4 @@
 [*.md]
-tab_width = 2
+tab_width = 0
 indent_style = tab
-indent_size = 1
+indent_size = 0
