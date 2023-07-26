@@ -83,6 +83,3 @@ Currencies select example:
 		</select>
 	</th>
 ```
-
-
-
