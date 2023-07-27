@@ -17,7 +17,7 @@ const settings = {
   },
   currencies: {
     parentSelector: "products__currencies", // add id to place in your site a currencies select
-    BASE: "USD",  // set base currency of products *
+    BASE: "RUB",  // set base currency of products *
     list: [
       {
         BASE: "USD", // set one of two currencies *
