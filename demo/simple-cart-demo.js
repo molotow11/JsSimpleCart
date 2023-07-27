@@ -30,6 +30,13 @@ const settings = {
           USD: 90, // set the exchange rate of the first currency to the second
         },
       },
+      {
+        BASE: "EUR", // set two of two currencies
+        symbol: "€", // set two of two currencies symbols
+        rates: {
+          USD: 1.1, // set the exchange rate of the first currency to the second
+        },
+      },
     ],
   },
   cartCookieDays: 7, // set the time data saved to the user
