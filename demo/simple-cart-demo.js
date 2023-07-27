@@ -405,6 +405,19 @@ function findBaseCurrencySymbol() {
   return baseCurrency.symbol;
 }
 
+function elementOutOfDimensions({element, event, callback}) {
+    const dialogDimensions = element.getBoundingClientRect();
+
+    if (
+      event.clientX < dialogDimensions.left ||
+      event.clientX > dialogDimensions.right ||
+      event.clientY < dialogDimensions.top ||
+      event.clientY > dialogDimensions.bottom
+    )  {
+      callback();
+    }
+  }
+
 //cart init
 if (productsOnSite.length) {
   const cart = document.getElementById(settings.cartSelectors.body);
@@ -420,10 +433,7 @@ if (productsOnSite.length) {
     ".SimpleCartDetails__place-order"
   );
   const popupCloseButton = popup.querySelector(".SimpleCartOrderPopup__close");
-  const popupOpened = popup.querySelector(".SimpleCartOrderPopup__backdrop");
   const popupFrom = popup.querySelector(".SimpleCartOrderPopup__form");
-  const popupFormBody = popup.querySelector(".SimpleCartOrderPopup__body");
-  const popupFormSent = popup.querySelector(".SimpleCartOrderPopup-success");
   const popupOrder = popup.querySelector(".SimpleCartOrderPopup__orderList");
   const source = "cart";
 
@@ -466,18 +476,35 @@ if (productsOnSite.length) {
     });
 
     popupOrder.value += totals;
-    popup.classList.add("visible");
+    popup.classList.remove('SimpleCartOrderPopup--success');
+    popup.showModal();
     cartDetails.classList.add(settings.cartSelectors.detalisHidden);
   });
 
-  popupCloseButton.addEventListener("click", () => {
-    popup.classList.remove("visible");
+  popupCloseButton.addEventListener("click", () => popup.close());
+
+  popup.addEventListener("click", (e) => {
+    elementOutOfDimensions({
+      element: popup,
+      event: e,
+      callback: () => popup.close(),
+    });
   });
 
-  popupOpened.addEventListener("click", () => {
-    popup.classList.remove("visible");
-  });
+  const submitSuccessDebounce = debounce(() => {
+    popup.classList.remove('SimpleCartOrderPopup--success');
+    popup.close();
+  }, 2000);
 
+  const formSubmitedCallback = () => {
+    popup.classList.add('SimpleCartOrderPopup--success');
+    submitSuccessDebounce();
+    clearCookie({
+      name: settings.cookieProductsName,
+      callback: buildCartLayout,
+    });
+  };
+  
   popupFrom.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(popupFrom);
@@ -486,14 +513,7 @@ if (productsOnSite.length) {
       url: settings.formSubmitUrl,
       method: "POST",
       body: formData,
-      callback: () => {
-        popupFormBody.style.display = "none";
-        popupFormSent.style.display = "block";
-        clearCookie({
-          name: settings.cookieProductsName,
-          callback: buildCartLayout,
-        });
-      },
+      callback: formSubmitedCallback,
     });
   });
 

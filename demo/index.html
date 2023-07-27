@@ -177,10 +177,10 @@
 		.SimpleCartDetails__place-order, .SimpleCartDetails__clearCart { display: block; margin: 10px auto; padding: 10px 15px; cursor: pointer; font-size: 16px; }
 		#SimpleCart .SimpleCartDetails__place-order { display: none; }
 		#SimpleCart .SimpleCartDetails__clearCart { display: none; }
-		#SimpleCartOrderPopup { display: none; position: fixed; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; }
-		#SimpleCartOrderPopup.visible { display: flex; align-items: center; justify-content: center; }
-		.SimpleCartOrderPopup__backdrop { position: absolute; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); }
-		.SimpleCartOrderPopup__body { z-index: 2; position: relative; background: #fff; padding: 40px; width: 50%; height: 80%; overflow-y: auto; border-radius: 4px; }
+		#SimpleCartOrderPopup { background: #fff; padding: 40px; width: 50%; height: 80%; overflow-y: auto; border-radius: 4px; }
+		#SimpleCartOrderPopup::backdrop { background: rgba(0, 0, 0, 0.5); }
+		.SimpleCartOrderPopup--success .SimpleCartOrderPopup__form { display: none; }
+		.SimpleCartOrderPopup--success::after { content: 'Your order has been sent'; display: flex; justify-content: center; font-size: 20px; }
 		.SimpleCartOrderPopup__close { display: flex; position: absolute; cursor: pointer; right: 15px; top: 10px; padding: 5px; }
 		#SimpleCartOrderPopup label { display: block; }
 		.SimpleCartOrderPopup-title { font-size: 20px; text-align: center; margin: 0 0 20px 0; padding: 0 0 20px 0; border-bottom: 1px solid #ddd; }
@@ -188,7 +188,6 @@
 		#SimpleCartOrderPopup button[type=submit] { display: block; margin: 20px auto 0; padding: 10px 20px;}
 		#SimpleCartOrderPopup label { margin-bottom: 10px; }
 		#SimpleCartOrderPopup label span { display: inline-block; min-width: 200px; }
-		.SimpleCartOrderPopup-success { background: #fff; z-index: 2; padding: 50px; border-radius: 4px; font-size: 20px; }
 		.SimpleCart-inCart { background: #fff298; }
 		#SimpleCartDetails a.SimpleCartDetails__clearCart { display: block; margin: 10px auto 0; text-align: center; }
 		@media (max-width: 600px) {
@@ -232,39 +231,33 @@
 			<button class="SimpleCartDetails__clearCart" type="button">Clear cart</button>
 		</div>
 	</div>
-	<div id="SimpleCartOrderPopup">
-		<div class="SimpleCartOrderPopup__backdrop"></div>
-		<div class="SimpleCartOrderPopup__body">
-			<button class="SimpleCartOrderPopup__close" type="button">
-				<svg viewBox="0 0 50 50" width="20px" height="20px"><path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z"/></svg>
-			</button>
-			<div class="SimpleCartOrderPopup-title">
-				Make an order
-			</div>
-			<form class="SimpleCartOrderPopup__form">
-				<label>
-					<span>Your name</span>
-					<input required type="text" name="name" />
-				</label>
-				<label>
-					<span>Telephone</span>
-					<input required type="tel" name="phone" />
-				</label>
-				<label>
-					<span>Email</span>
-					<input required type="email" name="email" />
-				</label>
-				<label>
-					<span>Your order</span>
-					<textarea class="SimpleCartOrderPopup__orderList" name="order"></textarea>
-				</label>
-				<button type="submit">Send</button>
-			</form>
+	<dialog id="SimpleCartOrderPopup">
+		<button class="SimpleCartOrderPopup__close" type="button">
+			<svg viewBox="0 0 50 50" width="20px" height="20px"><path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z"/></svg>
+		</button>
+		<div class="SimpleCartOrderPopup-title">
+			Make an order
 		</div>
-		<div class="SimpleCartOrderPopup-success" style="display: none;">
-			Your order has been sent
-		</div>
-	</div>
+		<form class="SimpleCartOrderPopup__form">
+			<label>
+				<span>Your name</span>
+				<input required type="text" name="name" />
+			</label>
+			<label>
+				<span>Telephone</span>
+				<input required type="tel" name="phone" />
+			</label>
+			<label>
+				<span>Email</span>
+				<input required type="email" name="email" />
+			</label>
+			<label>
+				<span>Your order</span>
+				<textarea class="SimpleCartOrderPopup__orderList" name="order"></textarea>
+			</label>
+			<button type="submit">Send</button>
+		</form>
+	</dialog>
 	<script src="simple-cart-demo.js" defer></script>
 </body>
 </html>
