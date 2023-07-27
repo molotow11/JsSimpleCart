@@ -17,7 +17,7 @@ const settings = {
   },
   currencies: {
     parentSelector: "products__currencies", // add id to place in your site a currencies select
-    BASE: "RUB",  // set base currency of products *
+    BASE: "EUR",  // set base currency of products *
     list: [
       {
         BASE: "USD", // set one of two currencies *
@@ -34,7 +34,7 @@ const settings = {
         BASE: "EUR", // set two of two currencies
         symbol: "€", // set two of two currencies symbols
         rates: {
-          USD: 1.1, // set the exchange rate of the first currency to the second
+          USD: 1.2, // set the exchange rate of the first currency to the second
         },
       },
     ],
