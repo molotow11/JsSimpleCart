@@ -27,7 +27,8 @@ const settings = {
     productNotAdded: "SimpleCart--product-not-added",
   },
   currencies: {
-    parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
+    parentSelector: "products__currencies", // Add id to element in your site 
+			//for to add currency select list.
     code: "USD", // Set default currency of products. *
     list: [ // You can add more currencies to the list or change the existing ones.
       {
@@ -65,7 +66,8 @@ const settings = {
 };
 ```
 		* - required.
-		If there is only one currency on your site, then fill in only the parameters marked * in the currency object.
+		If there is only one currency on your site, 
+		then fill in only the parameters marked * in the currency object.
 	3. Put OrderSubmit.php in site root or other place you configured in formSubmitUrl parameter.
 	4. Configure OrderSubmit.php and change your email and site.
 	5. The cart will be visible on the top right corner (if productSelector existing on the page).
@@ -73,7 +75,7 @@ const settings = {
 ## Examples
 
 	Product example:
-```html
+```HTML
 <tr class="product">
 	<td class="product__title">LUCERNA LED 55 OR PRO 90</td>
 	<td>
@@ -92,7 +94,7 @@ const settings = {
 </tr>
 ```
 Currencies select example:
-```html
+```HTML
 <th id="products__currencies">
 	<select>
 		<option value="$" selected="">Price in USD</option>
