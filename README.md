@@ -27,8 +27,7 @@ const settings = {
     productNotAdded: "SimpleCart--product-not-added",
   },
   currencies: {
-    parentSelector: "products__currencies", // Add id to element in your site 
-			//for to add currency select list.
+    parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
     code: "USD", // Set default currency of products. *
     list: [ // You can add more currencies to the list or change the existing ones.
       {
