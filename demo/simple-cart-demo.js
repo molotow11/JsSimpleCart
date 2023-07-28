@@ -16,18 +16,9 @@ const settings = {
     productNotAdded: "SimpleCart--product-not-added",
   },
   currencies: {
-    parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
-    code: "USD", // Set default currency of products. *
-    list: [ // You can add more currencies to the list or change the existing ones.
-      {
-        code: "USD", // Set currency code. *
-        symbol: "$", // Set currency symbol. *
-        rates: { // Set currency rate to all currencies in list. *
-          "$": 1, // USD to USD
-          "€": 1.1, // EUR to USD
-          "₽": 0.011, // RUB to USD
-        },
-      },
+    parentSelector: "products__currencies", // add id to place in your site a currencies select
+    BASE: "USD",  // set base currency of products *
+    list: [
       {
         code: "EUR",
         symbol: "€",
@@ -44,6 +35,13 @@ const settings = {
           "₽": 1,
           "$": 90,
           "€": 99,
+        },
+      },
+      {
+        BASE: "EUR", // set two of two currencies
+        symbol: "€", // set two of two currencies symbols
+        rates: {
+          USD: 1.2, // set the exchange rate of the first currency to the second
         },
       },
     ],
