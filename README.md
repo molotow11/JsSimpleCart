@@ -65,8 +65,9 @@ const settings = {
 };
 ```
 		* - required.
-		If there is only one currency on your site, 
-		then fill in only the parameters marked * in the currency object.
+		If there is only one currency on your site, then fill in only the parameters
+    marked * in the currency object.
+    The default currency of the products must be selected from the list of available currencies.
 	3. Put OrderSubmit.php in site root or other place you configured in formSubmitUrl parameter.
 	4. Configure OrderSubmit.php and change your email and site.
 	5. The cart will be visible on the top right corner (if productSelector existing on the page).
