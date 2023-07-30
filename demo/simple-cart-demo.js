@@ -16,9 +16,18 @@ const settings = {
     productNotAdded: "SimpleCart--product-not-added",
   },
   currencies: {
-    parentSelector: "products__currencies", // add id to place in your site a currencies select
-    BASE: "USD",  // set base currency of products *
-    list: [
+    parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
+    code: "USD", // Set default currency of products. *
+    list: [ // You can add more currencies to the list or change the existing ones.
+      {
+        code: "USD", // Set currency code. *
+        symbol: "$", // Set currency symbol. *
+        rates: { // Set currency rate to all currencies in list.
+          "$": 1, // USD to USD
+          "€": 1.1, // EUR to USD
+          "₽": 0.011, // RUB to USD
+        },
+      },
       {
         code: "EUR",
         symbol: "€",
@@ -35,13 +44,6 @@ const settings = {
           "₽": 1,
           "$": 90,
           "€": 99,
-        },
-      },
-      {
-        BASE: "EUR", // set two of two currencies
-        symbol: "€", // set two of two currencies symbols
-        rates: {
-          USD: 1.2, // set the exchange rate of the first currency to the second
         },
       },
     ],
@@ -356,45 +358,47 @@ function buildCurrencySelect({
   if (!parentID || !baseCurrency) return;
 
   const parent = document.getElementById(parentID);
-  const currenciesSelector = document.createElement("select");
+  const select = document.createElement("select");
   const currenciesList = settings.currencies.list;
 
   currenciesList.forEach(({ code, symbol }) => {
     const option = `<option value="${symbol}">Price in ${code}</option>`;
 
     if (code === baseCurrency) {
-      currenciesSelector.insertAdjacentHTML("afterbegin", option);
+      select.insertAdjacentHTML("afterbegin", option);
       return;
     }
 
-    currenciesSelector.insertAdjacentHTML("beforeend", option);
+    select.insertAdjacentHTML("beforeend", option);
   });
 
-  currenciesSelector[0].setAttribute("selected", "");
-  parent?.appendChild(currenciesSelector);
+  select[0].setAttribute("selected", "");
+  parent?.appendChild(select);
 
   if (!onChange) return;
 
-  let products = [];
+  const defaultSymbol = select[0].value;
 
-  productsOnSite.forEach((product) => {
-    let productPrice = product.querySelector(settings.productSelectors.price);
-    let productPriceValue = +productPrice.textContent;
-    products.push(productPriceValue);
-  });
-
-  onChange(parent, products);
+  onChange(select, defaultSymbol);
 }
 
-function onChangeCurrency(productsCurrency, defaultProductsPrices) {
-  const baseCurrencySymbol = findBaseCurrencySymbol();
+function onChangeCurrency(select, defaultSymbol) {
+  const {
+    currencies: { list },
+    productSelectors: { currency, price },
+  } = settings;
 
-  productsCurrency?.addEventListener("change", (e) => {
+  let productPrices = [];
+
+  productsOnSite.forEach((product) => {
+    const productPrice = product.querySelector(settings.productSelectors.price);
+    const productPriceValue = +productPrice.textContent;
+
+    productPrices.push(productPriceValue);
+  });
+  
+  select?.addEventListener("change", (e) => {
     const value = e.target.value;
-    const {
-      currencies: { list },
-      productSelectors: { currency, price },
-    } = settings;
 
     const selectedCurrnecy = list.find((currency) => {
       return currency.symbol === value;
@@ -405,13 +409,11 @@ function onChangeCurrency(productsCurrency, defaultProductsPrices) {
       const productPrice = product.querySelector(price);
       let newPrice;
 
-      if (value === baseCurrencySymbol) {
-        newPrice =
-          defaultProductsPrices[i] / selectedCurrnecy.rates[baseCurrencySymbol];
+      if (value === defaultSymbol) {
+        newPrice = productPrices[i] / selectedCurrnecy.rates[defaultSymbol];
           
       } else {
-        newPrice =
-          defaultProductsPrices[i] * selectedCurrnecy.rates[baseCurrencySymbol];
+        newPrice = productPrices[i] * selectedCurrnecy.rates[defaultSymbol];
       }
 
       newPrice = newPrice.toFixed(2);
@@ -474,10 +476,10 @@ if (productsOnSite.length) {
 
   //Change qty in detailed cart
   document.body.addEventListener("change", (e) => {
-    if (
-      !e.target.classList.contains(createClass(settings.productSelectors.qty))
-    )
-      return;
+    const cartProductQty = createClass(settings.productSelectors.qty);
+    const cartProductQtyChanged = e.target.classList.contains(cartProductQty);
+    
+    if (!cartProductQtyChanged) return;
 
     buildCartLayout(source);
     saveCartFromLayout();
