@@ -22,26 +22,17 @@ const settings = {
       {
         code: "USD", // Set currency code. *
         symbol: "$", // Set currency symbol. *
-        rates: { // Set currency rate to all currencies in list.
-          "€": 1.1, // EUR to USD
-          "₽": 0.011, // RUB to USD
-        },
+        rateToBase: 1, // Set the ratio of the base currency to the currency from the list.
       },
       {
         code: "EUR",
         symbol: "€",
-        rates: {
-          "$": 0.9, // USD to EUR
-          "₽": 0.01, // RUB to EUR
-        },
+        rateToBase: 0.9,
       },
       {
         code: "RUB",
         symbol: "₽",
-        rates: {
-          "$": 90,
-          "€": 99,
-        },
+        rateToBase: 92,
       },
     ],
   },
@@ -410,7 +401,7 @@ function onChangeCurrency(select, defaultSymbol) {
         newPrice = productPrices[i];
           
       } else {
-        newPrice = productPrices[i] * selectedCurrnecy.rates[defaultSymbol];
+        newPrice = productPrices[i] * selectedCurrnecy.rateToBase;
         newPrice = newPrice.toFixed(2);
       }
 
