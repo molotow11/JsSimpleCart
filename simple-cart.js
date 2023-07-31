@@ -17,13 +17,12 @@ const settings = {
   },
   currencies: {
     parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
-    code: "USD", // Set default currency of products. *
+    BASE: "USD", // Set default currency of products. *
     list: [ // You can add more currencies to the list or change the existing ones.
       {
         code: "USD", // Set currency code. *
         symbol: "$", // Set currency symbol. *
         rates: { // Set currency rate to all currencies in list.
-          "$": 1, // USD to USD
           "€": 1.1, // EUR to USD
           "₽": 0.011, // RUB to USD
         },
@@ -32,7 +31,6 @@ const settings = {
         code: "EUR",
         symbol: "€",
         rates: {
-          "€": 1, // EUR to EUR
           "$": 0.9, // USD to EUR
           "₽": 0.01, // RUB to EUR
         },
@@ -41,7 +39,6 @@ const settings = {
         code: "RUB",
         symbol: "₽",
         rates: {
-          "₽": 1,
           "$": 90,
           "€": 99,
         },
@@ -410,13 +407,13 @@ function onChangeCurrency(select, defaultSymbol) {
       let newPrice;
 
       if (value === defaultSymbol) {
-        newPrice = productPrices[i] / selectedCurrnecy.rates[defaultSymbol];
+        newPrice = productPrices[i];
           
       } else {
         newPrice = productPrices[i] * selectedCurrnecy.rates[defaultSymbol];
+        newPrice = newPrice.toFixed(2);
       }
 
-      newPrice = newPrice.toFixed(2);
       productPrice.textContent = newPrice;
       productCurrency.textContent = value;
     });
@@ -437,7 +434,7 @@ function elementOutOfDimensions({ element, event, callback }) {
 }
 
 function findBaseCurrencySymbol() {
-  const baseSiteCurrencyCode = settings.currencies.code;
+  const baseSiteCurrencyCode = settings.currencies.BASE;
   const currenciesList = settings.currencies.list;
   const baseCurrency = currenciesList.find(({ code }) => {
     return code === baseSiteCurrencyCode;
@@ -470,7 +467,7 @@ if (productsOnSite.length) {
   useCartLayout(settings.cartSelectors);
   buildCurrencySelect({
     parentID: settings.currencies.parentSelector,
-    baseCurrency: settings.currencies.code,
+    baseCurrency: settings.currencies.BASE,
     onChange: onChangeCurrency,
   });
 
