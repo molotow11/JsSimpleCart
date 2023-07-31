@@ -22,17 +22,17 @@ const settings = {
       {
         code: "USD", // Set currency code. *
         symbol: "$", // Set currency symbol. *
-        rateToBase: 1, // Set the ratio of the base currency to the currency from the list.
+        rateToBase: 1, // Set exchange rate to base currency.
       },
       {
         code: "EUR",
         symbol: "€",
-        rateToBase: 0.9,
+        rateToBase: 1.1,
       },
       {
         code: "RUB",
         symbol: "₽",
-        rateToBase: 92,
+        rateToBase: 0.011,
       },
     ],
   },
