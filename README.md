@@ -10,45 +10,52 @@ https://molotow11.github.io/JsSimpleCart/demo/
 	2. Configure this part for link it to products:
 ```javascript
 const settings = {
-	productSelectors: {
-		product: ".product", // add class to each product on your site *
-		buttonAddToCart: ".product__add-to-cart-button", // add class to each button in your product *
-		title: ".product__title", // add class to each title in your product *
-		price: ".product__price", // add class to each price in your product *
-		qty: ".product__qty",
-		currency: ".product__currency", // add class to each currency in your product *
-	},
-	cartSelectors: {
-		body: "SimpleCart",
-		details: "SimpleCartDetails",
-		detailsClose: ".SimpleCartDetails__close",
-		detalisHidden: "SimpleCartDetails--hidden",
-		productAdded: "SimpleCart--product-added",
-		productNotAdded: "SimpleCart--product-not-added",
-	},
-	currencies: {
-		parentSelector: "products__currencies", // add id to place in your site a currencies select
-		BASE: "USD",  // set base currency of products *
-		list: [
-			{
-				BASE: "USD", // set one of two currencies *
-				symbol: "$", // set one of two currencies symbols *
-			},
-			{
-				BASE: "RUB", // set two of two currencies
-				symbol: "₽", // set two of two currencies symbols
-				rates: {
-					USD: 90, // set the exchange rate of the first currency to the second
-				},
-			},
-		],
-	},
-	cartCookieDays: 7, // set the time data saved to the user
-	formSubmitUrl: "/order-submit.php",
-	cookieProductsName: "SimpleCart",
+  productSelectors: {
+    product: ".product", // Add class to each product on your site. *
+    buttonAddToCart: ".product__add-to-cart-button", // Add class to each button in your product. *
+    title: ".product__title", // Add class to each title in your product. *
+    price: ".product__price", // Add class to each price in your product. *
+    qty: ".product__qty",
+    currency: ".product__currency", // Add class to each currency in your product. *
+  },
+  cartSelectors: {
+    body: "SimpleCart",
+    details: "SimpleCartDetails",
+    detailsClose: ".SimpleCartDetails__close",
+    detalisHidden: "SimpleCartDetails--hidden",
+    productAdded: "SimpleCart--product-added",
+    productNotAdded: "SimpleCart--product-not-added",
+  },
+  currencies: {
+    parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
+    BASE: "USD", // Set default currency of products. *
+    list: [ // You can add more currencies to the list or change the existing ones.
+      {
+        code: "USD", // Set currency code. *
+        symbol: "$", // Set currency symbol. *
+        rateToBase: 1, // Set exchange rate to base currency.
+      },
+      {
+        code: "EUR",
+        symbol: "€",
+        rateToBase: 1.1,
+      },
+      {
+        code: "RUB",
+        symbol: "₽",
+        rateToBase: 0.011,
+      },
+    ],
+  },
+  cartCookieDays: 7, // Cookie lifetime.
+  formSubmitUrl: "/order-submit.php",
+  cookieProductsName: "SimpleCart",
 };
 ```
 		* - required.
+		If there is only one currency on your site, then fill in only the parameters
+    marked * in the currency object.
+    The default currency of the products must be selected from the list of available currencies.
 	3. Put OrderSubmit.php in site root or other place you configured in formSubmitUrl parameter.
 	4. Configure OrderSubmit.php and change your email and site.
 	5. The cart will be visible on the top right corner (if productSelector existing on the page).
@@ -56,7 +63,7 @@ const settings = {
 ## Examples
 
 	Product example:
-```html
+```HTML
 <tr class="product">
 	<td class="product__title">LUCERNA LED 55 OR PRO 90</td>
 	<td>
@@ -75,7 +82,7 @@ const settings = {
 </tr>
 ```
 Currencies select example:
-```html
+```HTML
 <th id="products__currencies">
 	<select>
 		<option value="$" selected="">Price in USD</option>

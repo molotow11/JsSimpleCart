@@ -1,11 +1,11 @@
 const settings = {
   productSelectors: {
-    product: ".product", // add class to each product on your site *
-    buttonAddToCart: ".product__add-to-cart-button", // add class to each button in your product *
-    title: ".product__title", // add class to each title in your product *
-    price: ".product__price", // add class to each price in your product *
+    product: ".product", // Add class to each product on your site. *
+    buttonAddToCart: ".product__add-to-cart-button", // Add class to each button in your product. *
+    title: ".product__title", // Add class to each title in your product. *
+    price: ".product__price", // Add class to each price in your product. *
     qty: ".product__qty",
-    currency: ".product__currency", // add class to each currency in your product *
+    currency: ".product__currency", // Add class to each currency in your product. *
   },
   cartSelectors: {
     body: "SimpleCart",
@@ -16,30 +16,27 @@ const settings = {
     productNotAdded: "SimpleCart--product-not-added",
   },
   currencies: {
-    parentSelector: "products__currencies", // add id to place in your site a currencies select
-    BASE: "EUR",  // set base currency of products *
-    list: [
+    parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
+    BASE: "USD", // Set default currency of products. *
+    list: [ // You can add more currencies to the list or change the existing ones.
       {
-        BASE: "USD", // set one of two currencies *
-        symbol: "$", // set one of two currencies symbols *
+        code: "USD", // Set currency code. *
+        symbol: "$", // Set currency symbol. *
+        rateToBase: 1, // Set exchange rate to base currency.
       },
       {
-        BASE: "RUB", // set two of two currencies
-        symbol: "₽", // set two of two currencies symbols
-        rates: {
-          USD: 90, // set the exchange rate of the first currency to the second
-        },
+        code: "EUR",
+        symbol: "€",
+        rateToBase: 1.1,
       },
       {
-        BASE: "EUR", // set two of two currencies
-        symbol: "€", // set two of two currencies symbols
-        rates: {
-          USD: 1.2, // set the exchange rate of the first currency to the second
-        },
+        code: "RUB",
+        symbol: "₽",
+        rateToBase: 0.011,
       },
     ],
   },
-  cartCookieDays: 7, // set the time data saved to the user
+  cartCookieDays: 7, // Cookie lifetime.
   formSubmitUrl: "/order-submit.php",
   cookieProductsName: "SimpleCart",
 };
@@ -258,14 +255,12 @@ function getCartProducts() {
   return products;
 }
 
-//rebuild cart layout and products
-
 function saveCartFromLayout() {
   const products = getCartProducts();
   setCookie(
     settings.cookieProductsName,
     JSON.stringify(products),
-    settings.cartCookieDays,
+    settings.cartCookieDays
   );
 }
 
@@ -305,7 +300,7 @@ function addToCart({
   setCookie(
     settings.cookieProductsName,
     JSON.stringify(products),
-    settings.cartCookieDays,
+    settings.cartCookieDays
   );
   buildCartLayout();
 }
@@ -351,79 +346,93 @@ function buildCurrencySelect({
   if (!parentID || !baseCurrency) return;
 
   const parent = document.getElementById(parentID);
-  const currenciesSelector = document.createElement("select");
+  const select = document.createElement("select");
   const currenciesList = settings.currencies.list;
 
-  currenciesList.forEach(({ BASE, symbol }) => {
-    const option = `<option value="${symbol}">Price in ${BASE}</option>`;
+  currenciesList.forEach(({ code, symbol }) => {
+    const option = `<option value="${symbol}">Price in ${code}</option>`;
 
-    if (BASE === baseCurrency) {
-      currenciesSelector.insertAdjacentHTML("afterbegin", option);
+    if (code === baseCurrency) {
+      select.insertAdjacentHTML("afterbegin", option);
       return;
     }
 
-    currenciesSelector.insertAdjacentHTML("beforeend", option);
+    select.insertAdjacentHTML("beforeend", option);
   });
 
-  currenciesSelector[0].setAttribute("selected", "");
-  parent?.appendChild(currenciesSelector);
+  select[0].setAttribute("selected", "");
+  parent?.appendChild(select);
 
   if (!onChange) return;
 
-  onChange(parent);
+  const defaultSymbol = select[0].value;
+
+  onChange(select, defaultSymbol);
 }
 
-function onChangeCurrency(productsCurrency) {
-  productsCurrency?.addEventListener("change", (e) => {
-    const selectedCurrnecy = e.target.value;
+function onChangeCurrency(select, defaultSymbol) {
+  const {
+    currencies: { list },
+    productSelectors: { currency, price },
+  } = settings;
 
-    productsOnSite.forEach((product) => {
-      const productCurrency = product.querySelector(
-        settings.productSelectors.currency
-      );
-      const firstCurrencySymbol = settings.currencies.list[0].symbol;
-      const secondCurrencySymbol = settings.currencies.list[1].symbol;
-      const toCurrencyRate = settings.currencies.list[1].rates.USD;
-      let productPrice = product.querySelector(settings.productSelectors.price);
-      let productPriceValue = +productPrice.textContent;
+  let productPrices = [];
 
-      productCurrency.textContent = selectedCurrnecy;
+  productsOnSite.forEach((product) => {
+    const productPrice = product.querySelector(settings.productSelectors.price);
+    const productPriceValue = +productPrice.textContent;
 
-      if (selectedCurrnecy === firstCurrencySymbol) {
-        productPriceValue = productPriceValue / toCurrencyRate;
+    productPrices.push(productPriceValue);
+  });
+  
+  select?.addEventListener("change", (e) => {
+    const value = e.target.value;
+
+    const selectedCurrnecy = list.find((currency) => {
+      return currency.symbol === value;
+    });
+
+    productsOnSite.forEach((product, i) => {
+      const productCurrency = product.querySelector(currency);
+      const productPrice = product.querySelector(price);
+      let newPrice;
+
+      if (value === defaultSymbol) {
+        newPrice = productPrices[i];
+          
+      } else {
+        newPrice = productPrices[i] / selectedCurrnecy.rateToBase;
+        newPrice = newPrice.toFixed(2);
       }
-      if (selectedCurrnecy === secondCurrencySymbol) {
-        productPriceValue = productPriceValue * toCurrencyRate;
-      }
 
-      productPriceValue = productPriceValue.toFixed(2);
-      productPrice.textContent = productPriceValue;
+      productPrice.textContent = newPrice;
+      productCurrency.textContent = value;
     });
   });
+}
+
+function elementOutOfDimensions({ element, event, callback }) {
+  const dialogDimensions = element.getBoundingClientRect();
+
+  if (
+    event.clientX < dialogDimensions.left ||
+    event.clientX > dialogDimensions.right ||
+    event.clientY < dialogDimensions.top ||
+    event.clientY > dialogDimensions.bottom
+  ) {
+    callback();
+  }
 }
 
 function findBaseCurrencySymbol() {
   const baseSiteCurrencyCode = settings.currencies.BASE;
   const currenciesList = settings.currencies.list;
-  const baseCurrency = currenciesList.find(({ BASE }) => {
-    return BASE === baseSiteCurrencyCode;
+  const baseCurrency = currenciesList.find(({ code }) => {
+    return code === baseSiteCurrencyCode;
   });
 
   return baseCurrency.symbol;
 }
-
-function elementOutOfDimensions({element, event, callback}) {
-    const dialogDimensions = element.getBoundingClientRect();
-
-    if (
-      event.clientX < dialogDimensions.left ||
-      event.clientX > dialogDimensions.right ||
-      event.clientY < dialogDimensions.top ||
-      event.clientY > dialogDimensions.bottom
-    )  {
-      callback();
-    }
-  }
 
 //cart init
 if (productsOnSite.length) {
@@ -443,7 +452,6 @@ if (productsOnSite.length) {
   const popupFrom = popup.querySelector(".SimpleCartOrderPopup__form");
   const popupOrder = popup.querySelector(".SimpleCartOrderPopup__orderList");
   const source = "cart";
-
   const baseCurrencySymbol = findBaseCurrencySymbol();
 
   buildCartLayout();
@@ -456,10 +464,10 @@ if (productsOnSite.length) {
 
   //Change qty in detailed cart
   document.body.addEventListener("change", (e) => {
-    if (
-      !e.target.classList.contains(createClass(settings.productSelectors.qty))
-    )
-      return;
+    const cartProductQty = createClass(settings.productSelectors.qty);
+    const cartProductQtyChanged = e.target.classList.contains(cartProductQty);
+    
+    if (!cartProductQtyChanged) return;
 
     buildCartLayout(source);
     saveCartFromLayout();
@@ -483,7 +491,7 @@ if (productsOnSite.length) {
     });
 
     popupOrder.value += totals;
-    popup.classList.remove('SimpleCartOrderPopup--success');
+    popup.classList.remove("SimpleCartOrderPopup--success");
     popup.showModal();
     cartDetails.classList.add(settings.cartSelectors.detalisHidden);
   });
@@ -499,19 +507,19 @@ if (productsOnSite.length) {
   });
 
   const submitSuccessDebounce = debounce(() => {
-    popup.classList.remove('SimpleCartOrderPopup--success');
+    popup.classList.remove("SimpleCartOrderPopup--success");
     popup.close();
   }, 2000);
 
   const formSubmitedCallback = () => {
-    popup.classList.add('SimpleCartOrderPopup--success');
+    popup.classList.add("SimpleCartOrderPopup--success");
     submitSuccessDebounce();
     clearCookie({
       name: settings.cookieProductsName,
       callback: buildCartLayout,
     });
   };
-  
+
   popupFrom.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(popupFrom);
