@@ -17,7 +17,7 @@ const settings = {
   },
   currencies: {
     parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
-    BASE: "EUR", // Set default currency of products. *
+    BASE: "USD", // Set default currency of products. *
     list: [ // You can add more currencies to the list or change the existing ones.
       {
         code: "USD", // Set currency code. *
