@@ -17,22 +17,22 @@ const settings = {
   },
   currencies: {
     parentSelector: "products__currencies", // Add id to element in your site for to add currency select list.
-    BASE: "USD", // Set default currency of products. *
+    BASE: "EUR", // Set default currency of products. *
     list: [ // You can add more currencies to the list or change the existing ones.
       {
         code: "USD", // Set currency code. *
         symbol: "$", // Set currency symbol. *
-        rateToBase: 1, // Set exchange rate to base currency.
+        rateToBase: 0.91, // Set exchange rate to base currency.
       },
       {
         code: "EUR",
         symbol: "€",
-        rateToBase: 1.1,
+        rateToBase: 1,
       },
       {
         code: "RUB",
         symbol: "₽",
-        rateToBase: 0.011,
+        rateToBase: 0.0099,
       },
     ],
   },
